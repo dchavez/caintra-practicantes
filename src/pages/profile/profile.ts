@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { MenuController, NavController } from 'ionic-angular';
 
 import { UserService } from '../../providers/user-service';
 
@@ -13,8 +13,6 @@ export class ProfilePage {
     public navCtrl: NavController,
     public menu: MenuController,
     public userService: UserService,
-    private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
   ) {
     this.initData();
   }

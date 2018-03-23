@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AboutPage } from '../about/about';
+//import { AboutPage } from '../about/about';
 import { LoginPage } from '../login/login';
 import { SchoolPlanPage } from '../schoolplan/schoolplan'
 import { AccidentInsurancePage } from '../accidentinsurance/accidentinsurance'
 import { MedicalCarePage } from '../medicalcare/medicalcare';
 import { ProfilePage } from '../profile/profile';
 
-import { MenuController, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { MenuController, NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 import { UserService } from '../../providers/user-service';
 import { SharedService } from '../../providers/shared-service';
@@ -34,7 +34,7 @@ export class HomePage {
     this.menu.enable(true, 'mnuMain'); //persistent = "true"
     this.initData();
   }
-  
+
   initData() {
     this.getUserData();
   }
@@ -78,7 +78,7 @@ export class HomePage {
       _this.showError("Access Denied");
     });
   }
-  
+
   getUserData() {
     //this.showLoading();
 
@@ -112,7 +112,7 @@ export class HomePage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
 
 }

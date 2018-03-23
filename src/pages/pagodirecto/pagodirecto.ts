@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, Platform, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 //import { File } from '@ionic-native/file';
@@ -120,7 +120,7 @@ export class PagoDirectoPage {
         subTitle: text,
         buttons: ['OK']
       });
-      alert.present(prompt);
+      alert.present();
     }
 
 }

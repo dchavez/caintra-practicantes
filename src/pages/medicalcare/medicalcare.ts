@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { MenuController, NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 import { ReembolsoPage } from '../reembolso/reembolso';
 import { PagoDirectoPage } from '../pagodirecto/pagodirecto';
@@ -63,7 +63,7 @@ export class MedicalCarePage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
 
 }

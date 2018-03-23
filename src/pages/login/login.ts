@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { MenuController, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { MenuController, NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
@@ -44,7 +44,7 @@ export class LoginPage {
     }, (error) => {
       _this.showError("Access Denied");
     });
-    
+
     //let _this = this;
     //_this.navCtrl.setRoot(RegisterPage).then(data => {
     //  console.log('register', data);
@@ -91,7 +91,7 @@ export class LoginPage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
 
 }

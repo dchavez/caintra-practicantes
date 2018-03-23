@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 import { CompletarAvisoPage } from '../completaraviso/completaraviso';
 
@@ -48,7 +48,7 @@ export class ReembolsoPage {
         subTitle: text,
         buttons: ['OK']
       });
-      alert.present(prompt);
+      alert.present();
     }
 
 }

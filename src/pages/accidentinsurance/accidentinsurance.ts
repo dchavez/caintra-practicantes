@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { MenuController, NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 import { MedicalCarePage } from '../medicalcare/medicalcare';
 import { SharedService } from '../../providers/shared-service';
@@ -62,7 +62,7 @@ export class AccidentInsurancePage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
 
 }

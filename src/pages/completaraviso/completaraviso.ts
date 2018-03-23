@@ -79,7 +79,7 @@ export class CompletarAvisoPage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
 
 }

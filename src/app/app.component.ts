@@ -10,7 +10,7 @@ import { AccidentInsurancePage } from '../pages/accidentinsurance/accidentinsura
 import { MedicalCarePage } from '../pages/medicalcare/medicalcare';
 import { ProfilePage } from '../pages/profile/profile';
 
-import { CompletarAvisoPage } from '../pages/completaraviso/completaraviso';
+//import { CompletarAvisoPage } from '../pages/completaraviso/completaraviso';
 
 
 @Component({
@@ -19,16 +19,18 @@ import { CompletarAvisoPage } from '../pages/completaraviso/completaraviso';
 export class CaintraApp {
   rootPage: any = LoginPage; //LoginPage;
   loginPage = LoginPage;
+  menu: any;
+  app: any;
 
   constructor(
     platform: Platform,
     app: App,
     menu: MenuController,
-    statusBar: StatusBar, 
+    statusBar: StatusBar,
     splashScreen: SplashScreen
   ) {
     this.menu = menu;
-    this.platform = platform;
+    this.app = app;
 
     platform.ready().then(() => {
       statusBar.styleDefault();
