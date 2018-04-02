@@ -21,6 +21,7 @@ export class CaintraApp {
   loginPage = LoginPage;
   menu: any;
   app: any;
+  platform: any;
 
   constructor(
     platform: Platform,
@@ -66,7 +67,9 @@ export class CaintraApp {
   }
 
   closeApp() {
-    this.app.getActiveNav().push(LoginPage);
-    this.menu.close();
+    //this.app.getActiveNav().push(LoginPage);
+    //this.menu.close();
+    //ionic.Platform.exitApp();
+    this.platform.exitApp();
   }
 }

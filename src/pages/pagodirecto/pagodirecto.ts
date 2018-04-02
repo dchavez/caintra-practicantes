@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, Platform, AlertController, LoadingController, Loading } from 'ionic-angular';
 
-//import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-//import { File } from '@ionic-native/file';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { CompletarAvisoPage } from '../completaraviso/completaraviso';
 
@@ -20,81 +20,51 @@ export class PagoDirectoPage {
   userPoliza: any = {};
   token: any = {};
   loading: Loading;
-
   storageDirectory: string = '';
 
   constructor(
+    public platform: Platform,
     public navCtrl: NavController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private dataShare: SharedService,
-    public platform: Platform,
-    //private transfer: FileTransfer,
-    //private file: File
+    private transfer: FileTransfer,
+    private fileOpener: FileOpener
   ) {
     this.token = this.dataShare.getToken();
     this.userData = this.dataShare.getUserData().Generales;
     this.userEmpresa = this.dataShare.getUserData().Empresa;
     this.userPoliza = this.dataShare.getUserData().Poliza;
-    this.initData();
-
     this.platform.ready().then(() => {
-      if (!this.platform.is('cordova')) {
+      if(!this.platform.is('cordova')) {
         return false;
       }
       if (this.platform.is('ios')) {
         this.storageDirectory = cordova.file.documentsDirectory;
       }
-      else if (this.platform.is('android')) {
+      else if(this.platform.is('android')) {
         this.storageDirectory = cordova.file.dataDirectory;
       }
       else {
         return false;
       }
-    })
-
-  }
-
-  initData() {
-
+    });
   }
 
   downloadAvisoAccidente() {
-
+    this.showLoading();
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    const url = 'http://webapicaintra.segupoliza.com/docs/AvisoAccidentes.pdf';
+    fileTransfer.download(url, this.storageDirectory + 'AvisoAccidentes.pdf').then((entry) => {
+      this.loading.dismiss();
+      this.fileOpener.open(entry.toURL(), 'application/pdf')
+      .then(() => console.log('File is opened'))
+      .catch(e => console.log('Error openening file', e));
+    }, (error) => {
+      console.log(error);
+      this.showInfo("Error al descargar el documento");
+    });
   }
-
-  //downloadImage(image) {
-
-  //  this.platform.ready().then(() => {
-
-  //    const fileTransfer: TransferObject = this.transfer.create();
-
-  //    const imageLocation = `${cordova.file.applicationDirectory}www/assets/img/${image}`;
-
-  //    fileTransfer.download(imageLocation, this.storageDirectory + image).then((entry) => {
-
-  //      const alertSuccess = this.alertCtrl.create({
-  //        title: `Download Succeeded!`,
-  //        subTitle: `${image} was successfully downloaded to: ${entry.toURL()}`,
-  //        buttons: ['Ok']
-  //      });
-
-  //      alertSuccess.present();
-
-  //    }, (error) => {
-
-  //      const alertFailure = this.alertCtrl.create({
-  //        title: `Download Failed!`,
-  //        subTitle: `${image} was not successfully downloaded. Error code: ${error.code}`,
-  //        buttons: ['Ok']
-  //      });
-
-  //      alertFailure.present();
-
-  //    });
-
-  //  });
-  //}
 
     goCompletarAviso() {
       this.navCtrl.push(CompletarAvisoPage).then(data => {
@@ -115,6 +85,15 @@ export class PagoDirectoPage {
     showError(text) {
       this.loading.dismiss();
 
+      let alert = this.alertCtrl.create({
+        title: '',
+        subTitle: text,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+
+    showInfo(text) {
       let alert = this.alertCtrl.create({
         title: '',
         subTitle: text,

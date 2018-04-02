@@ -4,6 +4,7 @@ import { MenuController, NavController, AlertController, LoadingController, Load
 
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
+import { RecoverpassPage } from '../recoverpass/recoverpass';
 
 import { UserService } from '../../providers/user-service';
 import { SharedService } from '../../providers/shared-service';
@@ -15,6 +16,7 @@ import { SharedService } from '../../providers/shared-service';
 export class LoginPage {
   homePage = HomePage;
   registerPage = RegisterPage;
+  recoverPass = RecoverpassPage;
   loading: Loading;
   registerCredentials = { email: '', password: '' };
   token: any = {};
@@ -54,9 +56,18 @@ export class LoginPage {
     //});
   }
 
+  public recoverPassword(){
+    this.navCtrl.push(RecoverpassPage).then(data => {
+    }, (error) => {
+    });
+  }
 
   public login() {
     let _this = this;
+
+    if(this.registerCredentials.email==""||this.registerCredentials.password==""){
+      return;
+    }
 
     this.showLoading();
 

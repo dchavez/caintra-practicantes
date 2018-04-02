@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, Platform, AlertController, LoadingController, Loading } from 'ionic-angular';
+
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { CompletarAvisoPage } from '../completaraviso/completaraviso';
+
+declare var cordova: any;
 
 @Component({
     selector: 'page-reembolso',
@@ -9,26 +14,52 @@ import { CompletarAvisoPage } from '../completaraviso/completaraviso';
 })
 export class ReembolsoPage {
   loading: Loading;
+  storageDirectory: string = '';
 
   constructor(
+    public platform: Platform,
     public navCtrl: NavController,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private transfer: FileTransfer,
+    private fileOpener: FileOpener
   ) {
-    this.initData();
+    this.platform.ready().then(() => {
+      if(!this.platform.is('cordova')) {
+        return false;
+      }
+      if (this.platform.is('ios')) {
+        this.storageDirectory = cordova.file.documentsDirectory;
+      }
+      else if(this.platform.is('android')) {
+        this.storageDirectory = cordova.file.dataDirectory;
+      }
+      else {
+        return false;
+      }
+    });
   }
 
-  initData() {
-
+  downloadAvisoAccidente() {
+    this.showLoading();
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    const url = 'http://webapicaintra.segupoliza.com/docs/AvisoAccidentes.pdf';
+    fileTransfer.download(url, this.storageDirectory + 'AvisoAccidentes.pdf').then((entry) => {
+      this.loading.dismiss();
+      this.fileOpener.open(entry.toURL(), 'application/pdf')
+      .then(() => console.log('File is opened'))
+      .catch(e => console.log('Error openening file', e));
+    }, (error) => {
+      console.log(error);
+      this.showInfo("Error al descargar el documento");
+    });
   }
 
     goCompletarAviso() {
-      let _this = this;
-
       this.navCtrl.push(CompletarAvisoPage).then(data => {
         console.log('Profile', data);
       }, (error) => {
-        _this.showError("Access Denied");
+        this.showError("Access Denied");
       });
     }
 
@@ -45,6 +76,15 @@ export class ReembolsoPage {
 
       let alert = this.alertCtrl.create({
         title: 'Fail',
+        subTitle: text,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+
+    showInfo(text) {
+      let alert = this.alertCtrl.create({
+        title: '',
         subTitle: text,
         buttons: ['OK']
       });
