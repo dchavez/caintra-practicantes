@@ -25678,8 +25678,38 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+#mnuMain .content {
+  background-image: url(../assets/left.png);
+  background-repeat-y: repeat;
+  background-repeat-x: no-repeat;
+}
+
+#mnuMain .toolbar-background {
+  background-image: url(../assets/left.png);
+  background-color: #f4f4f4;
+  background-repeat-x: no-repeat;
+  background-repeat-y: repeat;
+  border: 0;
+}
+
+#mnuMain .toolbar-title {
+  color: #aaa;
+}
+
+#mnuMain button {
+  color: #aaa;
+  background-color: #f4f4f4;
+  background-image: url(../assets/left.png);
+  background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+}
+
 page-accidentinsurance .aright {
   float: right !important;
+}
+
+page-completaraviso h3 {
+  color: #666;
 }
 
 page-home .center {
@@ -25790,8 +25820,7 @@ page-login .login-content .logo-row {
 }
 
 page-login .login-content .login-box {
-  background: #f4f4f4;
-  padding: 20px 20px 0px 20px;
+  padding: 40px 0px 0px 0px;
   margin-top: 30px;
 }
 
@@ -25855,6 +25884,28 @@ page-medicalcare .aright {
 
 page-medicalcare .text-normal {
   font-size: 16px;
+}
+
+page-pagodirecto .btnAviso {
+  font-size: 14px;
+  padding: 5px;
+}
+
+@media (max-width: 320px) {
+  page-pagodirecto .btnAviso {
+    padding: 2px;
+  }
+}
+
+page-reembolso .btnAviso {
+  font-size: 14px;
+  padding: 5px;
+}
+
+@media (max-width: 320px) {
+  page-reembolso .btnAviso {
+    padding: 2px;
+  }
 }
 
 page-schoolplan .aright {
